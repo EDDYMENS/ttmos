@@ -1,0 +1,269 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ACME Analytics Consent API",
+    "description": "Documentation for ACME Analytics Consent API. API for registering users consent to collect their data for analytic purposes\n",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://acme-analytics.xyz/api/v1"
+    },
+    {
+      "url": "http://localhost-a:8000/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "v1",
+      "description": "Version 1 APIs"
+    }
+  ],
+  "paths": {
+    "/fetch-consent/{userId}": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Return all data",
+        "description": "Describe this a bit more here",
+        "operationId": "allData",
+        "parameters": [
+          {
+            "name": "ACME-API-KEY",
+            "in": "header",
+            "description": "API Key",
+            "example": "demo-abcd",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of datum to update",
+            "example": "demo-12345",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseStructure"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/submit-consent/{userId}": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Add data",
+        "description": "Further description for adding data",
+        "operationId": "addData",
+        "parameters": [
+          {
+            "name": "ACME-API-KEY",
+            "in": "header",
+            "description": "API Key",
+            "example": "demo-abcd",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of datum to update",
+            "example": "demo-12345",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "Request Body structure required to add data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestStructure"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseStructure"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/update-consent/{userId}": {
+      "patch": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Update data",
+        "description": "Further description for adding data",
+        "operationId": "updateData",
+        "parameters": [
+          {
+            "name": "ACME-API-KEY",
+            "in": "header",
+            "description": "API Key",
+            "example": "demo-abcd",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of datum to update",
+            "example": "demo-12345",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "Request Body structure required to update data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestStructure"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseStructure"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/revoke-consent/{userId}": {
+      "delete": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Deletes a pet",
+        "description": "delete a pet",
+        "operationId": "deletePet",
+        "parameters": [
+          {
+            "name": "ACME-API-KEY",
+            "in": "header",
+            "description": "API Key",
+            "example": "demo-abcd",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of datum to update",
+            "example": "demo-12345",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RequestStructure": {
+        "type": "object",
+        "properties": {
+          "collectIP": {
+            "type": "boolean",
+            "example": true
+          },
+          "collectBrowserInfo": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "ResponseStructure": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 1000
+          },
+          "message": {
+            "type": "string",
+            "example": "Response Message"
+          },
+          "payload": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  }
+}
